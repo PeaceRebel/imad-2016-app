@@ -163,7 +163,7 @@ app.get('/hash/:input', function (req, res){
     res.send(hashedString);
 });
 
-app.get('/create-user', function (req, res) {
+app.get('/createuser', function (req, res) {
    // username, password
    // {"username": "tanmai", "password": "password"}
    // JSON
