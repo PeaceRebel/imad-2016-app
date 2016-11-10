@@ -152,6 +152,11 @@ function createTemplate (data){
     return htmlTemplate;
 }
 
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+});
+
+
 function hash(input, salt){
     const hashed = crypto.pbkdf2Sync(input, salt, 10000, 512, 'sha512');
     return ['pbkdf2', '10000', salt, hashed.toString('hex')].join('$');
@@ -180,10 +185,6 @@ app.post('/creat-user', function(req, res){
 });
 
 var counter = 0;
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
-});
 
 app.get('/counter', function (req, res) {
    counter = counter + 1;
