@@ -24,19 +24,3 @@ submit.onclick = function () {
     request.send(null);
 };
 
-var comment_submit = document.getElementById('submit_comment');
-comment_submit.onclick = function(){
-    var comments = new XMLHttpRequest();
-    comments.onreadystatechange = function(){
-        if(comments.readyState == XMLHttpRequest.DONE){
-            if(comments.status == 200){
-                function (form){
-                    var name = form.name.value;
-                    var email = form.email.value;
-                    var comment_text = form.comment.value;
-                    var article_id = form.articleid.value;
-                } 
-            }
-        }
-    }
-}
