@@ -152,10 +152,6 @@ function createTemplate (data){
     return htmlTemplate;
 }
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
-});
-
 
 function hash(input, salt){
     const hashed = crypto.pbkdf2Sync(input, salt, 10000, 512, 'sha512');
@@ -167,7 +163,7 @@ app.get('/hash/:input', function (req, res){
     res.send(hashedString);
 });
 
-app.post("/create-user", function(req, res){
+app.post('/create-user', function(req, res){
     
     var username = req.body.username;
     var password = req.body.password;
@@ -182,6 +178,10 @@ app.post("/create-user", function(req, res){
     
         }    
     });
+});
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
 var counter = 0;
