@@ -65,6 +65,9 @@ function createTemplate (data){
     return htmlTemplate;
 }
 
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+});
 
 function hash(input, salt){
     const hashed = crypto.pbkdf2Sync(input, salt, 10000, 512, 'sha512');
@@ -81,7 +84,7 @@ app.post('/create-user', function (req, res) {
    var password = req.body.password;
    var salt = crypto.randomBytes(128).toString('hex');
    var dbString = hash(password, salt);
-   pool.query('INSERT INTO "user" (username, password) VALUES ($1, $2)', [username, dbString], function (err, result) {
+   pool.query('INSERT INTO "user" (username, password) VALUES ($1, $2)', [username, dbString], function (err, res) {
       if (err) {
           res.status(500).send(err.toString());
       } else {
@@ -90,15 +93,14 @@ app.post('/create-user', function (req, res) {
    });
 });
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
-});
 
 var counter = 0;
 
-app.get('/counter', function (req, res) {
-   counter = counter + 1;
-   res.send(counter.toString());
+app.post('/login', function(req, res){
+   var username = req.body.username;
+   var password = req.body.password;
+   
+   pool.query('SELECT * FROM "user" WHERE username=$1',[username], funstion(err,res))
 });
 
 var names = [];
