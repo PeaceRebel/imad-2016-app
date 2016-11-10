@@ -111,23 +111,23 @@ app.post('/login', function(req, res){
           if (result.rows.length === 0){
               res.status(403).send('username/password is invalid!');
           }
-          else{
+        else{
               var dbString = result.rows[0].password;
               var salt= dbString.split('$')[2];
               var hashedPassword = hash(password, salt);
               if (hashedPassword == dbString){
+                  req.session.Auth = {userId : result.rows.[0].id} ;
                   res.send('Credentials accepted!');
-                  
-                  
-                  
-              }
-              else{
+                }
+              else {
                   res.status(403).send('username/password is invalid!');
               }
           }
       }
    });
 });
+
+app.get('/check-login')
 
 var names = [];
 app.get('/submit-name', function (req, res){
